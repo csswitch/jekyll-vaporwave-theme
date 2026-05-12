@@ -1,0 +1,62 @@
+---
+layout: default
+---
+
+<section class="vp-hero">
+  <div class="vp-hero__inner">
+    <p class="vp-hero__eyebrow">✦ &nbsp; {{ site.description | truncate: 50 }} &nbsp; ✦</p>
+    <h1 class="vp-hero__title">{{ site.title }}</h1>
+    <p class="vp-hero__sub">{{ site.description }}</p>
+    <a class="vp-hero__cta" href="{{ '/archive' | relative_url }}">Browse All Posts</a>
+  </div>
+</section>
+
+<main class="vp-main">
+  <div class="section-header">
+    <span class="section-header__title">Latest Posts</span>
+    <span class="section-header__count">{{ site.posts.size }}</span>
+  </div>
+
+  {% if paginator.posts %}
+    {% assign posts = paginator.posts %}
+  {% else %}
+    {% assign posts = site.posts %}
+  {% endif %}
+
+  <div class="post-grid">
+  {% for post in posts %}
+    <a class="post-card" href="{{ post.url | relative_url }}">
+      <div class="post-card__date">{{ post.date | date: "%Y · %m · %d" }}</div>
+      <div class="post-card__title">{{ post.title }}</div>
+      {% if post.excerpt %}
+      <div class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</div>
+      {% endif %}
+      {% if post.tags.size > 0 %}
+      <div class="post-card__tags">
+        {% for tag in post.tags limit:3 %}
+        <span class="tag-pill">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </a>
+  {% endfor %}
+  </div>
+
+  {% if paginator.total_pages > 1 %}
+  <nav class="vp-pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}">← Prev</a>
+    {% endif %}
+    {% for i in (1..paginator.total_pages) %}
+      {% if i == paginator.page %}
+        <span class="current">{{ i }}</span>
+      {% else %}
+        <a href="{{ site.paginate_path | replace: ':num', i | relative_url }}">{{ i }}</a>
+      {% endif %}
+    {% endfor %}
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}">Next →</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</main>

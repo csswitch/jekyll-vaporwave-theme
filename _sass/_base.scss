@@ -1,0 +1,99 @@
+@import 'variables';
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: $bg;
+  color: $text;
+  font-family: $font-sans;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  // Scanlines overlay
+  &::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent, transparent 2px,
+      rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+}
+
+// ── Headings ──────────────────────────────────────────────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  color: $text;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  @include gradient-text($grad-text);
+}
+h2 {
+  font-size: 1.6rem;
+  margin: 2.5rem 0 0.75rem;
+  @include gradient-text($grad-text-2);
+}
+h3 { font-size: 1.2rem; margin: 1.75rem 0 0.5rem; color: $coral; }
+
+p { margin-bottom: 1.1rem; color: $text-secondary; }
+
+a {
+  color: $pink;
+  text-decoration: none;
+  transition: color 0.2s;
+  &:hover { color: $cyan; text-decoration: none; }
+}
+
+// ── Code ──────────────────────────────────────────────────────────────────────
+code, pre { font-family: $font-mono; font-size: 0.85em; }
+
+code {
+  background: rgba($purple, 0.15);
+  border: 1px solid rgba($purple, 0.3);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  color: $cyan;
+}
+
+pre {
+  @include vapor-card;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  code { background: none; border: none; padding: 0; color: $mint; }
+}
+
+blockquote {
+  border-left: 3px solid $pink;
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  background: rgba($pink, 0.05);
+  border-radius: 0 $radius-lg $radius-lg 0;
+  font-style: italic;
+  font-family: $font-serif;
+  font-size: 1.1rem;
+  color: $coral;
+  p { color: $coral; margin: 0; }
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, $border-glow, transparent);
+  margin: 2.5rem 0;
+}
+
+img { max-width: 100%; border-radius: $radius-lg; border: 1px solid $border; }
+ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; color: $text-secondary; }
+li { margin-bottom: 0.3rem; }
+strong { color: $text; font-weight: 700; }

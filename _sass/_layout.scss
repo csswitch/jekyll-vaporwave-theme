@@ -1,0 +1,172 @@
+@import 'variables';
+
+// ── Nav ───────────────────────────────────────────────────────────────────────
+.vp-nav {
+  height: $nav-h;
+  background: rgba($bg-header, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid $border;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+
+  &__logo {
+    font-family: $font-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+    @include gradient-text($grad-text);
+    letter-spacing: 0.02em;
+  }
+
+  &__links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+
+    a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: $text-secondary;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+
+      &:hover, &.active { color: $pink; }
+    }
+  }
+
+  &__toggle {
+    display: none;
+    background: none;
+    border: 1px solid $border;
+    color: $pink;
+    padding: 0.35rem 0.75rem;
+    border-radius: $radius;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+.vp-hero {
+  position: relative;
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+  overflow: hidden;
+
+  // Perspective synthwave grid
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: -50%; right: -50%;
+    height: 60%;
+    background-image:
+      linear-gradient(rgba($cyan, 0.2) 1px, transparent 1px),
+      linear-gradient(90deg, rgba($pink, 0.2) 1px, transparent 1px);
+    background-size: 80px 80px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: bottom center;
+    animation: grid-scroll 3s linear infinite;
+    mask-image: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+  }
+
+  // Radial glow
+  &::after {
+    content: '';
+    position: absolute;
+    top: 30%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba($purple, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  &__inner { position: relative; z-index: 1; max-width: $max-w; margin: 0 auto; }
+
+  &__eyebrow {
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $cyan;
+    margin-bottom: 1rem;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  &__title {
+    font-family: $font-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    @include gradient-text($grad-text);
+  }
+
+  &__sub {
+    font-size: 1.05rem;
+    color: $text-secondary;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+
+  &__cta {
+    display: inline-block;
+    background: $grad-btn;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.75rem 2rem;
+    border-radius: $radius-pill;
+    text-decoration: none;
+    @include neon-glow($pink, 0.6);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: float 3s ease-in-out infinite;
+
+    &:hover {
+      transform: translateY(-2px);
+      @include neon-glow($pink, 1);
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
+
+// ── Page wrapper ─────────────────────────────────────────────────────────────
+.vp-main {
+  max-width: $max-w;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+.vp-footer {
+  background: $bg-footer;
+  border-top: 1px solid $border;
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: $text-dim;
+
+  a { color: $purple; &:hover { color: $pink; } }
+}
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 640px) {
+  .vp-nav {
+    &__links { display: none; flex-direction: column; }
+    &__toggle { display: block; }
+    &__links.open { display: flex; position: absolute; top: $nav-h; left: 0; right: 0; background: $bg-header; padding: 1rem 2rem; border-bottom: 1px solid $border; }
+  }
+  .vp-hero { padding: 3rem 1.5rem 2.5rem; }
+  .vp-main { padding: 2rem 1.25rem; }
+}

@@ -1,0 +1,32 @@
+title: "Vaporwave Theme Demo"
+description: "Retro 80s/90s aesthetic Jekyll theme — pastel gradients, synthwave vibes, chrome serif typography"
+url: "https://csswitch.github.io"
+baseurl: "/jekyll-vaporwave-theme"
+author: "csswitch"
+lang: en
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-paginate
+
+paginate: 6
+paginate_path: "/page/:num/"
+permalink: /:year/:month/:day/:title/
+
+sass:
+  style: compressed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/
+
+vaporwave:
+  grid: true
+  scanlines: true
+  glitch: true
+  gradient_text: true
+  neon_border: true
